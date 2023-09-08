@@ -1,12 +1,12 @@
-import java.util;
-import java.io;
+import java.util.*;
+import java.io.*;
 
 class Scanner {
     private Queue<Core> tokenQueue;
     private BufferedReader reader;
     private Queue<String> idQueue;
     private Queue<Integer> constQueue;
-    // Initialize the scanner
+    // Initialize the scanner and linkedlists for Token, ID, and CONST Queues
     Scanner(String filename) {
         try{
             reader = new BufferedReader(new FileReader(filename));
@@ -18,27 +18,30 @@ class Scanner {
             System.out.println("Error: File not found");
         }
     }
-
+    //Tokenizes all the input at once, and adds them to the TokenQueue via addToken
     private void tokenize(){
         StringBuilder s = new StringBuilder();
         int c;
-        int specialEqual;
         try{
             while((c = reader.read()) != -1){
                 char ch = (char) c;
+                //Checks if the current char is a whitespace, ends the stringbuilding sequence and adds the token
                 if (Character.isWhitespace(ch)){
                     if(s.length() > 0){
                         addToken(s.toString());
                         s = new StringBuilder();
                     }
-                } else if(ch == '+' || ch == '-' || ch == '*' || ch == '/' ||ch == ':'|| ch == '=' || ch == '=' || ch == '<' || ch == ';' || ch == '.' || ch == ',' || ch == '(' || ch == ')' || ch == '[' || ch == ']'){
+                //Checks if the current char is a nonletter or digit character and adds it to the TokenQueue if it is
+                } else if(ch == '+' || ch == '-' || ch == '*' || ch == '/' ||ch == ':'|| ch == '=' || ch == '<' || ch == ';' || ch == '.' || ch == ',' || ch == '(' || ch == ')' || ch == '[' || ch == ']'){
                     if(s.length() > 0){
                         addToken(s.toString());
                         s = new StringBuilder();
                     }
+                    //Checks if the current nonletter or digit character is specifically a colon. If it is, it checks if the very next character is an equal,
                     if(ch == ':'){
                         if(reader.ready()){
-                            specialEqual = reader.read();
+                            c = reader.read();
+                            char specialEqual = (char) c;
                             if(specialEqual == '='){
                                 s.append(ch);
                                 s.append(specialEqual);
@@ -46,9 +49,10 @@ class Scanner {
                                 s = new StringBuilder();
                             }else{
                             addToken(Character.toString(ch));
-                            addToken(Character.toString(specialEqual));
+                                if(!Character.isWhitespace(specialEqual)){
+                                    addToken(Character.toString(specialEqual));
+                                }
                             }
-
                         }else{
                             addToken(Character.toString(ch));
                         }
@@ -63,10 +67,10 @@ class Scanner {
                 addToken(s.toString());
             }
         }catch (IOException e){
-            System.out.println("Error: Tokenizer failed!")
+            System.out.println("Error: Tokenizer failed!");
         }
     }
-    
+    //Uses a switch case to match each str, with it's ENUM in the Core class. If the str doesn't match, returns an Error
     private Core mapStringToCore(String str){
         switch (str) {
             case "procedure": return Core.PROCEDURE;
@@ -119,7 +123,7 @@ class Scanner {
                 }
         }
     }
-
+    //After matching str with Core ENUM via mapStringToCore, adds it to the TokenQueue, and then if the token was an ID or CONST, adds it to their respective queues as well.
     private void addToken(String str){
         Core token = mapStringToCore(str);
         tokenQueue.add(token);
@@ -148,19 +152,12 @@ class Scanner {
 
 	// Return the identifier string
     public String getId() {
-        if(currentToken() == Core.ID){
-            return idQueue.poll();
-        }
-        System.out.println("Error: Requested Token is not an ID");
-        return null;
+        return idQueue.poll();
     }
 
 	// Return the constant value
     public int getConst() {
-        if(currentToken() == Core.CONST){
-            return constQueue.poll();
-        }
-        System.out.println("Error: Requested Token is not a CONST");
+        return constQueue.poll();
     }
 
 }
