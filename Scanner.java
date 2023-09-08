@@ -14,6 +14,7 @@ class Scanner {
             idQueue = new LinkedList<>();
             constQueue = new LinkedList<>();
             tokenize();
+            reader.close();
         }catch (IOException e){
             System.out.println("Error: File not found");
         }
@@ -40,18 +41,19 @@ class Scanner {
                     //Checks if the current nonletter or digit character is specifically a colon. If it is, it checks if the very next character is an equal,
                     if(ch == ':'){
                         if(reader.ready()){
+                            reader.mark(2);
                             c = reader.read();
                             char specialEqual = (char) c;
                             if(specialEqual == '='){
+                                reader.reset();
+                                reader.skip(1);
                                 s.append(ch);
                                 s.append(specialEqual);
                                 addToken(s.toString());
                                 s = new StringBuilder();
                             }else{
-                            addToken(Character.toString(ch));
-                                if(!Character.isWhitespace(specialEqual)){
-                                    addToken(Character.toString(specialEqual));
-                                }
+                                addToken(Character.toString(ch));
+                                reader.reset();
                             }
                         }else{
                             addToken(Character.toString(ch));
