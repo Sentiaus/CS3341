@@ -1,9 +1,5 @@
-
-array int X , Y , XY 	; begin
-
-          X = 0;
-		  
-		  new[10] X;
-
-          end  
-      
+procedure test2 is
+	integer x;
+begin
+	x:=0-10;
+end

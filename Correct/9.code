@@ -1,1 +1,6 @@
-int x1, y123y,z9z9z9z;
+procedure test9 is
+	integer x;
+begin
+	x := 10;
+	out(x);
+end

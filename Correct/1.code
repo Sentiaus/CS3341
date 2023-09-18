@@ -1,12 +1,5 @@
-
-123
-      and procedure array ARRAY
-      (
-        ;
-        :=
-
-        token
-        =
-      )
-3
-while
+procedure test1 is
+	integer x;
+begin
+	x:=10;
+end

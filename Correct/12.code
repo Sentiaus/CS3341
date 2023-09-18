@@ -1,1 +1,9 @@
-pRocedure In oUt iF TheN END BEGIN EnD ref EOS
+procedure test12 is
+	integer x;
+	integer y;
+begin
+	x := 1;
+	y := 2;
+	out(x);
+	out(y);
+end
