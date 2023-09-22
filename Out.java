@@ -8,23 +8,23 @@ class Out{
             System.exit(1);
         }
         s.nextToken();
-        //Checks if Current Token is LPARANTHESES, NEXT TOKEN
-        if(s.currentToken()!=Core.LPARANTHESES){
-            System.out.println("ERROR: Expected LPARANTHESES Token");
+        //Checks if Current Token is LPAREN, NEXT TOKEN
+        if(s.currentToken()!=Core.LPAREN){
+            System.out.println("ERROR: Expected LPAREN Token");
             System.exit(1);
         }
         s.nextToken();
         //Checks if token is beginning of an expression, if it is, parses the expression
-        if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPARANTHESES){
-            System.out.println("Error: Expected ID, CONST, or LPARANTHESES Token");
+        if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPAREN){
+            System.out.println("Error: Expected ID, CONST, or LPAREN Token");
             System.exit(1);
         }
         ex = new Expr();
         ex.parse(s);
 
-        //Checks if token is RPARANTHESES, NEXT TOKEN
-        if(s.currentToken()!=Core.RPARANTHESES){
-            System.out.println("ERROR: Expected RPARANTHESES Token");
+        //Checks if token is RPAREN, NEXT TOKEN
+        if(s.currentToken()!=Core.RPAREN){
+            System.out.println("ERROR: Expected RPAREN Token");
             System.exit(1);
         }
         s.nextToken();

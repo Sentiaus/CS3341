@@ -20,11 +20,11 @@ class Assign{
         if(s.currentToken() == Core.ASSIGN){
             //IF ASSIGN,Next token, Checks if token is the beginning of an expression, a NEW Token, or an ARRAY Token
             s.nextToken();
-            if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPARANTHESES || s.currentToken() != Core.NEW || s.currentToken() != Core.ARRAY){
-                System.out.println("Error: Expected ID, CONST, LPARANTHESES, NEW, or ARRAY Token");
+            if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPAREN || s.currentToken() != Core.NEW || s.currentToken() != Core.ARRAY){
+                System.out.println("Error: Expected ID, CONST, LPAREN, NEW, or ARRAY Token");
                 System.exit(1);
             }
-            if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPARANTHESES){
+            if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPAREN){
                flag = 0;
                ex = new Expr();
                ex.parse(s);
@@ -46,8 +46,8 @@ class Assign{
                 s.nextToken();
 
                 //Checks if token is beginning of an expression, if it is, parses the expression
-                if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPARANTHESES){
-                    System.out.println("Error: Expected ID, CONST, or LPARANTHESES Token");
+                if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPAREN){
+                    System.out.println("Error: Expected ID, CONST, or LPAREN Token");
                     System.exit(1);
                 }
                 ex = new Expr();
@@ -74,11 +74,11 @@ class Assign{
             //IF LBRACE,Next token, Checks if token is the beginning of an expression, sets flag to 1
             flag = 1
             s.nextToken();
-            if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPARANTHESES){
+            if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPAREN){
                ex = new Expr();
                ex.parse(s);
             }else{
-                System.out.println("Error: Expected ID, CONST, or LPARANTHESES Token");
+                System.out.println("Error: Expected ID, CONST, or LPAREN Token");
                 System.exit(1);
             }
             //Checks if the token after the expression is an RBRACE
@@ -94,11 +94,11 @@ class Assign{
             }
             //Next Token, Checks if the token is the beginning of another expression
             s.nextToken();
-            if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPARANTHESES){
+            if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPAREN){
                 ex2 = new Expr();
                 ex2.parse(s); 
             }else{
-                System.out.println("Error: Expected ID, CONST, or LPARANTHESES Token");
+                System.out.println("Error: Expected ID, CONST, or LPAREN Token");
                 System.exit(1);
             }
         }
