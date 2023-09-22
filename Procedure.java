@@ -1,3 +1,4 @@
+
 class Procedure{
     String name;
     DeclSeq ds;
@@ -11,7 +12,7 @@ class Procedure{
         s.nextToken();
 
         if(s.currentToken() != Core.ID){
-            System.out.println("Error: Expecrted ID Token");
+            System.out.println("Error: Expeceted ID Token");
             System.exit(1);
         }
         name = s.getId();

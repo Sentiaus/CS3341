@@ -13,4 +13,11 @@ class DeclSeq{
 
     }
 
+    void print(){
+        d.print();
+        if(ds != null){
+            ds.print();
+        }
+    }
+
 }
