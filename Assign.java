@@ -13,14 +13,14 @@ class Assign{
         name = s.getId();
         //Next Token, Checks if Token is an Assign, or LBRACE
         s.nextToken();
-        if(s.currentToken() != Core.ASSIGN || s.currentToken() != Core.LBRACE){
-            System.out.println("Error: Expeceted ASSIGN or LBRACE Token");
+        if(s.currentToken() != Core.ASSIGN && s.currentToken() != Core.LBRACE){
+            System.out.println("Error: Expeceted ASSIGN or LBRACE Token. Got: " + s.currentToken());
             System.exit(1);
         }
         if(s.currentToken() == Core.ASSIGN){
             //IF ASSIGN,Next token, Checks if token is the beginning of an expression, a NEW Token, or an ARRAY Token
             s.nextToken();
-            if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPAREN || s.currentToken() != Core.NEW || s.currentToken() != Core.ARRAY){
+            if(s.currentToken() != Core.ID && s.currentToken() != Core.CONST && s.currentToken() != Core.LPAREN && s.currentToken() != Core.NEW && s.currentToken() != Core.ARRAY){
                 System.out.println("Error: Expected ID, CONST, LPAREN, NEW, or ARRAY Token");
                 System.exit(1);
             }
@@ -46,18 +46,19 @@ class Assign{
                 s.nextToken();
 
                 //Checks if token is beginning of an expression, if it is, parses the expression
-                if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPAREN){
+                if(s.currentToken() != Core.ID && s.currentToken() != Core.CONST && s.currentToken() != Core.LPAREN){
                     System.out.println("Error: Expected ID, CONST, or LPAREN Token");
                     System.exit(1);
                 }
                 ex = new Expr();
                 ex.parse(s);
 
-                //Checks if the token after the expression is an RBRACE
+                //Checks if the token after the expression is an RBRACE, NEXT TOKEN
                 if(s.currentToken() != Core.RBRACE){
                     System.out.println("Error: Expeceted RBRACE Token");
                     System.exit(1);
                 }
+                s.nextToken();
             }else if(s.currentToken() == Core.ARRAY){
                 //If token equals Array, Next Token, sets flag to 3
                 flag = 3;
@@ -72,7 +73,7 @@ class Assign{
             }
         }else if(s.currentToken() == Core.LBRACE){
             //IF LBRACE,Next token, Checks if token is the beginning of an expression, sets flag to 1
-            flag = 1
+            flag = 1;
             s.nextToken();
             if(s.currentToken() == Core.ID || s.currentToken() == Core.CONST|| s.currentToken() == Core.LPAREN){
                ex = new Expr();
@@ -103,10 +104,9 @@ class Assign{
             }
         }
         //ALL ASSIGN OPERATIONS END IN SEMICOLON
-        //Next Token, Checks if the token is a semicolon token
-        s.nextToken();
+        //Checks if the token is a semicolon token
         if(s.currentToken()!= Core.SEMICOLON){
-            System.out.println("Error: Expeceted SEMICOLON Token");
+            System.out.println("Error: Expeceted SEMICOLON Token. Got: " + s.currentToken());
             System.exit(1);
         }
         //Next Token

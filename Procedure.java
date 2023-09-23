@@ -5,7 +5,7 @@ class Procedure{
     StmtSeq ss;
 
     void parse(Scanner s){
-        if(s.currentToken() != Core.Procedure){
+        if(s.currentToken() != Core.PROCEDURE){
             System.out.println("Error: Expected Procedure Token");
             System.exit(1);
         }
@@ -38,7 +38,7 @@ class Procedure{
         ss = new StmtSeq();
         ss.parse(s);
         if(s.currentToken() != Core.END){
-            System.out.println("Error: Expected END Token");
+            System.out.println("Error: Expected END Token. Got: " + s.currentToken());
             System.exit(1);
         }
         s.nextToken();

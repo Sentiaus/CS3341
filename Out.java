@@ -15,7 +15,7 @@ class Out{
         }
         s.nextToken();
         //Checks if token is beginning of an expression, if it is, parses the expression
-        if(s.currentToken() != Core.ID || s.currentToken() != Core.CONST || s.currentToken() != Core.LPAREN){
+        if(s.currentToken() != Core.ID && s.currentToken() != Core.CONST && s.currentToken() != Core.LPAREN){
             System.out.println("Error: Expected ID, CONST, or LPAREN Token");
             System.exit(1);
         }
